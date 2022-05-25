@@ -63,7 +63,7 @@ function Check() {
   }
 
   return (
-    <Button variant="contained" className="black" onClick={displayNimbbl}>
+    <Button variant="contained" className="" onClick={displayNimbbl}>
       Checkout
     </Button>
   )

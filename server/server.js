@@ -11,30 +11,48 @@ const nimbbl = new Nimbbl({
   key_secret: 'access_secret_1DvejDD1MqoWW3KB',
 })
 
-app.post('/nimbbl', async (req, res) => {
-  const payment_capture = 1
-  const amount = 50
+const user = app.post('/nimbbl', async (req, res) => {
+  const amount_before_tax = 45
+  const tax = 5
+  const total_amount = 50
+  const user = {
+    mobile_number: '9999999999',
+    email: 'rakesh.kumar@example.com',
+    first_name: 'Rakesh',
+    last_name: 'Kumar',
+  }
+  const shipping_address = {
+    address_1: 'Some address',
+    street: 'Your street',
+    landmark: 'My landmark',
+    area: 'My area',
+    city: 'Mumbai',
+    state: 'Maharashtra',
+    pincode: '400018',
+    address_type: 'residential',
+  }
+  
+  const invoice_id= 'BrQv9nkxDEqWR3zg'
+  
   const currency = 'INR'
 
   const options = {
-    amount: amount * 100,
+    amount: total_amount * 100,
     currency,
     receipt: shortid.generate(),
-    payment_capture,
   }
 
-try{
+  try {
     const response = await nimbbl.order.create(options)
     console.log(response)
     res.json({
-        id: response.id,
-        currency: response.currency,
-        amount: response.amount
+      id: response.id,
+      currency: response.currency,
+      amount: response.amount,
     })
-}catch(error){
+  } catch (error) {
     console.log(error)
-}
- 
+  }
 })
 
 app.listen(1337, () => {
